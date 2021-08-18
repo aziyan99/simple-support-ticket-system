@@ -2,6 +2,10 @@
 
 @section('title', 'Dashboard')
 
+@section('breadcump')
+    <li class="breadcrumb-item active" aria-current="page">Index</li>
+@endsection
+
 @section('content')
     <div class="card">
         <div class="card-body">

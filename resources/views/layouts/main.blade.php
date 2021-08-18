@@ -26,11 +26,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
+            <h5>Menu</h5>
+            <hr>
             <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                    Menu
-                </a>
-                <a href="{{ route('dashboard.index') }}" class="list-group-item list-group-item-action">Dashboard</a>
+                <a href="{{ route('dashboard.index') }}" class="list-group-item list-group-item-action active">Dashboard</a>
                 <a href="#" class="list-group-item list-group-item-action">Ticket Categories</a>
                 <a href="#" class="list-group-item list-group-item-action">Tickets</a>
                 <a href="#" class="list-group-item list-group-item-action">Users</a>
@@ -47,6 +46,12 @@
             </div>
         </div>
         <div class="col-md-9">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
+                  @yield('breadcump')
+                </ol>
+              </nav>
             @yield('content')
         </div>
     </div>
