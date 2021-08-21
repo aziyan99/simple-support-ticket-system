@@ -36,8 +36,10 @@
                     <div class="list-group">
                         <a href="{{ route('dashboard.index') }}"
                             class="list-group-item list-group-item-action">Dashboard</a>
-                        <a href="{{ route('category.index') }}" class="list-group-item list-group-item-action">Ticket Categories</a>
-                        <a href="#" class="list-group-item list-group-item-action">Tickets</a>
+                        <a href="{{ route('category.index') }}"
+                           class="list-group-item list-group-item-action">Ticket Categories</a>
+                        <a href="{{ route('ticket.index') }}"
+                           class="list-group-item list-group-item-action">Tickets</a>
                         <a href="#" class="list-group-item list-group-item-action">Users</a>
                         <a href="{{ route('logout') }}" class="list-group-item list-group-item-action" onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">Logout</a>
