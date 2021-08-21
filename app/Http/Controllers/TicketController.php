@@ -16,7 +16,7 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::latest()->get();
+        $tickets = Ticket::with('category', 'agent', 'customer')->latest()->get();
         return view('ticket.index', compact('tickets'));
     }
 
@@ -73,8 +73,9 @@ class TicketController extends Controller
     public function edit(Ticket $ticket)
     {
         $categories = Category::all();
-        $users = User::all();
-        return view('ticket.edit', compact('ticket', 'categories', 'users'));
+        $customers = User::where('role', 'customer')->get();
+        $agents = User::where('role', 'agent')->get();
+        return view('ticket.edit', compact('ticket', 'categories', 'customers', 'agents'));
     }
 
     /**

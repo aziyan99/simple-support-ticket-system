@@ -15,7 +15,7 @@
             <h4>Categories</h4>
             <a href="{{ route('category.create') }}" class="btn btn-primary mt-2 mb-2">Create new category</a>
             <div class="table-responsive mt-3 mb-3">
-                <table class="table table-bordered table-hover table-sm">
+                <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
                         <th>ID</th>

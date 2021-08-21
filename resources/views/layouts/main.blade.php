@@ -42,13 +42,11 @@
                            class="list-group-item">Tickets</a>
                         <a href="{{ route('user.index') }}"
                            class="list-group-item">Users</a>
-                        <a href="javascript:void(0);"
-                           class="list-group-item">Settings</a>
                     </div>
 
                     <div class="list-group mt-4">
                         <a href="javascript:void(0);"
-                           class="list-group-item list-group-item-action">Logged as: {{ auth()->user()->name }}</a>
+                           class="list-group-item list-group-item-action">Logged as: <b>{{ auth()->user()->name }}</b></a>
                         <a href="{{ route('profile.index') }}"
                            class="list-group-item">Profile</a>
                         <a href="{{ route('logout') }}" class="list-group-item" onclick="event.preventDefault();

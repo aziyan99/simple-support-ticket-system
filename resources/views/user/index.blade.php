@@ -15,7 +15,7 @@
             <h4>Users</h4>
             <a href="{{ route('user.create') }}" class="btn btn-primary mt-2 mb-2">Create new user</a>
             <div class="table-responsive mt-3 mb-3">
-                <table class="table table-bordered table-hover table-sm">
+                <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
                         <th>ID</th>
