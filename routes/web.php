@@ -24,4 +24,6 @@ Auth::routes([
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
+
+    Route::resource('/category', \App\Http\Controllers\CategoryController::class)->except(['show']);
 });
