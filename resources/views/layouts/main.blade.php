@@ -35,22 +35,27 @@
                     <hr>
                     <div class="list-group">
                         <a href="{{ route('dashboard.index') }}"
-                            class="list-group-item list-group-item-action">Dashboard</a>
+                            class="list-group-item">Dashboard</a>
                         <a href="{{ route('category.index') }}"
-                           class="list-group-item list-group-item-action">Ticket Categories</a>
+                           class="list-group-item">Ticket Categories</a>
                         <a href="{{ route('ticket.index') }}"
-                           class="list-group-item list-group-item-action">Tickets</a>
-                        <a href="#" class="list-group-item list-group-item-action">Users</a>
-                        <a href="{{ route('logout') }}" class="list-group-item list-group-item-action" onclick="event.preventDefault();
+                           class="list-group-item">Tickets</a>
+                        <a href="{{ route('user.index') }}"
+                           class="list-group-item">Users</a>
+                        <a href="javascript:void(0);"
+                           class="list-group-item">Settings</a>
+                    </div>
+
+                    <div class="list-group mt-4">
+                        <a href="javascript:void(0);"
+                           class="list-group-item list-group-item-action">Logged as: {{ auth()->user()->name }}</a>
+                        <a href="{{ route('profile.index') }}"
+                           class="list-group-item">Profile</a>
+                        <a href="{{ route('logout') }}" class="list-group-item" onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">Logout</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
-                    </div>
-                    <div class="card mt-3">
-                        <div class="card-body">
-                            Logged as: {{ auth()->user()->name }}
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-9">

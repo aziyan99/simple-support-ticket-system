@@ -27,4 +27,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('/category', \App\Http\Controllers\CategoryController::class)->except(['show']);
     Route::resource('/ticket', \App\Http\Controllers\TicketController::class);
+    Route::resource('/user', \App\Http\Controllers\UserController::class);
+
+    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])
+        ->name('profile.index');
+    Route::put('/profile/update/{id}', [\App\Http\Controllers\ProfileController::class, 'update'])
+        ->name('profile.update.data');
+    Route::put('/profile/password/{id}', [\App\Http\Controllers\ProfileController::class, 'updatePassword'])
+        ->name('profile.update.password');
 });
