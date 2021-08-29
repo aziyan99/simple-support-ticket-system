@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -61,7 +62,8 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket)
     {
-        return view('ticket.show', compact('ticket'));
+        $comments = Comment::where('ticket_id', $ticket->id)->orderBy('created_at')->get();
+        return view('ticket.show', compact('ticket', 'comments'));
     }
 
     /**
@@ -108,5 +110,30 @@ class TicketController extends Controller
     {
         $ticket->delete();
         return redirect()->route('ticket.index')->with('success', 'Ticket has been deleted!');
+    }
+
+    public function updateStatus(Request $request, Ticket $ticket)
+    {
+        $request->validate([
+            'status' => 'required'
+        ]);
+
+        $ticket->update($request->all());
+        return back()->with('success', 'Ticket status has been updated!');
+    }
+
+    public function storeComment(Request $request, Ticket $ticket)
+    {
+        $request->validate([
+            'content' => 'required'
+        ]);
+
+        Comment::create([
+            'user_id' => auth()->user()->id,
+            'ticket_id' => $ticket->id,
+            'content' => $request->content
+        ]);
+
+        return back()->with('success', 'Ticket status has been updated!');
     }
 }

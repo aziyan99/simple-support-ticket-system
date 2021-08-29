@@ -18,4 +18,9 @@ class Comment extends Model
     {
         return $this->belongsTo(Ticket::class);
     }
+
+    public function writer()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

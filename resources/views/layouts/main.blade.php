@@ -9,11 +9,13 @@
         <!-- Bootstrap CSS -->
         <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet"
             integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('assets/trix/trix.css') }}">
+        <script src="{{ asset('assets/trix/trix.js') }}"></script>
         <title>@yield('title')</title>
     </head>
 
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light p-3 border-bottom mb-4">
+    <body class="bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white p-3 border-bottom mb-4 fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Support Ticket</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -28,6 +30,7 @@
                 </div>
             </div>
         </nav>
+        <br><br><br><br>
         <div class="container">
             <div class="row">
                 <div class="col-md-3">

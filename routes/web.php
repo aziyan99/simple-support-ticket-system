@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +27,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::resource('/category', \App\Http\Controllers\CategoryController::class)->except(['show']);
+
     Route::resource('/ticket', \App\Http\Controllers\TicketController::class);
+    Route::put('/updateStatus/{ticket}', [TicketController::class, 'updateStatus'])->name('ticket.update.status');
+    Route::put('/storeMessage/{ticket}', [TicketController::class, 'storeComment'])->name('ticket.store.message');
+
     Route::resource('/user', \App\Http\Controllers\UserController::class);
 
     Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])
