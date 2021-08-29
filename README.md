@@ -31,6 +31,12 @@ next, running the migration and seeder
     php artisan migrate:fresh --seed
 ```
 
+Default login credentials:
+```
+admin: admin@example.com
+password: password
+```
+
 ## Depedencies
 1. Laravel 8.X
 2. Trix Editor
