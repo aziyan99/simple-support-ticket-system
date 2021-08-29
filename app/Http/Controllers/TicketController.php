@@ -17,7 +17,20 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::with('category', 'agent', 'customer')->latest()->get();
+        $ticket = [];
+        if (auth()->user()->role == "agent") {
+            $tickets = Ticket::with('category', 'agent', 'customer')
+                ->where('agent_id', auth()->user()->id)
+                ->latest()
+                ->get();
+        } else if (auth()->user()->role == "customer") {
+            $tickets = Ticket::with('category', 'agent', 'customer')
+                ->where('customer_id', auth()->user()->id)
+                ->latest()
+                ->get();
+        } else {
+            $tickets = Ticket::with('category', 'agent', 'customer')->latest()->get();
+        }
         return view('ticket.index', compact('tickets'));
     }
 
@@ -30,9 +43,46 @@ class TicketController extends Controller
     {
         $ticket = new Ticket();
         $categories = Category::all();
+        $customerId = "-";
+        $customerName = "-";
+        $agentId = "-";
+        $agentName = "-";
+
+        if (auth()->user()->role == "customer") {
+            $agents = User::where('role', 'agent')->get();
+
+            $rawAgents = [];
+            foreach ($agents as $agent) {
+                $data = [$agent->id, $agent->name];
+                array_push($rawAgents, $data);
+            }
+
+            $rawAgentsCount = count($rawAgents) - 1;
+            $luckyAgent = rand(0, $rawAgentsCount);
+
+            $customerName = auth()->user()->name;
+            $customerId = auth()->user()->id;
+            $agentId = $rawAgents[$luckyAgent][0];
+            $agentName = $rawAgents[$luckyAgent][1];
+        }
+
+        if (auth()->user()->role == "agent") {
+            $agentName = auth()->user()->name;
+            $agentId = auth()->user()->id;
+        }
+
         $customers = User::where('role', 'customer')->get();
         $agents = User::where('role', 'agent')->get();
-        return view('ticket.create', compact('ticket', 'categories', 'customers', 'agents'));
+        return view('ticket.create', compact(
+            'ticket',
+            'categories',
+            'customers',
+            'agents',
+            'customerId',
+            'customerName',
+            'agentId',
+            'agentName',
+        ));
     }
 
     /**
@@ -74,6 +124,7 @@ class TicketController extends Controller
      */
     public function edit(Ticket $ticket)
     {
+        abort_if(Gate::denies('isAdmin'), 404);
         $categories = Category::all();
         $customers = User::where('role', 'customer')->get();
         $agents = User::where('role', 'agent')->get();
@@ -89,6 +140,7 @@ class TicketController extends Controller
      */
     public function update(Request $request, Ticket $ticket)
     {
+        abort_if(Gate::denies('isAdmin'), 404);
         $request->validate([
             'customer_id' => 'required',
             'agent_id' => 'required',
@@ -108,6 +160,7 @@ class TicketController extends Controller
      */
     public function destroy(Ticket $ticket)
     {
+        abort_if(Gate::denies('isAdmin'), 404);
         $ticket->delete();
         return redirect()->route('ticket.index')->with('success', 'Ticket has been deleted!');
     }

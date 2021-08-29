@@ -39,14 +39,18 @@
                             </td>
                             <td>{{ $ticket->created_at->diffForHumans() }}</td>
                             <td>
+                                @can('isAdmin')
                                 <a href="{{ route('ticket.edit', $ticket) }}" class="btn btn-warning d-inline">Edit</a>
+                                @endcan
                                 <a href="{{ route('ticket.show', $ticket) }}" class="btn btn-secondary d-inline">Show</a>
+                                @can('isAdmin')
                                 <form action="{{ route('ticket.destroy', $ticket) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button onclick="return confirm('Delete this ticket?')"
                                             class="btn btn-danger btn-sm" type="submit">Delete</button>
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

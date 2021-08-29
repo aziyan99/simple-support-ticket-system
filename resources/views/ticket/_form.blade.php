@@ -1,5 +1,6 @@
 <div class="row">
     <div class="col-md-6">
+        @can('isAdmin')
         <div class="mb-3">
             <label for="customer_id">Customer</label>
             <select name="customer_id" id="customer_id"
@@ -29,6 +30,42 @@
             <small class="invalid-feedback" role="alert">{{ $message }}</small>
             @enderror
         </div>
+        @endcan
+
+        @can('isCustomer')
+            <input type="hidden" name="customer_id" class="form-control" value="{{ $customerId }}" readonly>
+            <input type="hidden" name="agent_id" class="form-control" value="{{ $agentId }}" readonly>
+            <div class="mb-3">
+                <label>Customer</label>
+                <input type="text" class="form-control" value="{{ $customerName }}" readonly>
+            </div>
+            <div class="mb-3">
+                <label>Agent</label>
+                <input type="text" class="form-control" value="{{ $agentName }}" readonly>
+            </div>
+        @endcan
+
+        @can('isAgent')
+            <input type="hidden" name="customer_id" class="form-control" value="{{ $customerId }}" readonly>
+            <div class="mb-3">
+                <label>Agent</label>
+                <input type="text" class="form-control" value="{{ $agentName }}" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="customer_id">Customer</label>
+                <select name="customer_id" id="customer_id"
+                        class="form-select @error('customer_id') is-invalid @enderror">
+                    @foreach($customers as $customer)
+                        <option value="{{ $customer->id }}"
+                            {{ (old('customer_id') == $customer->id) ? 'selected' : '' }}
+                            {{ ($ticket->customer_id == $customer->id) ? 'selected' : '' }}>{{ $customer->name }}</option>
+                    @endforeach
+                </select>
+                @error('customer_id')
+                <small class="invalid-feedback" role="alert">{{ $message }}</small>
+                @enderror
+            </div>
+        @endcan
 
         <div class="mb-3">
             <label for="category_id">Category</label>

@@ -48,6 +48,7 @@
                         <td>{{ $ticket->content }}</td>
                     </tr>
                 </table>
+                @can('isAdmin')
                 <hr>
                 <h5>Update ticket status</h5>
                 <form action="{{ route('ticket.update.status', $ticket) }}" method="POST">
@@ -70,6 +71,31 @@
                         <Button type="submit" class="btn btn-primary">Save</Button>
                     </div>
                 </form>
+                @endcan
+                @can('isAgent')
+                <hr>
+                <h5>Update ticket status</h5>
+                <form action="{{ route('ticket.update.status', $ticket) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="mb-3">
+                        <label for="status">Status</label>
+                        <select name="status" id="status" class="form-select @error('status') is-invalid @enderror">
+                            <option value="pending" {{ $ticket->status == "pending" ? "selected" : "" }}>pending
+                            </option>
+                            <option value="process" {{ $ticket->status == "process" ? "selected" : "" }}>process
+                            </option>
+                            <option value="done" {{ $ticket->status == "done" ? "selected" : "" }}>done</option>
+                        </select>
+                        @error('status')
+                        <small class="invalid-feedback" role="alert">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <Button type="submit" class="btn btn-primary">Save</Button>
+                    </div>
+                </form>
+                @endcan
             </div>
         </div>
     </div>
@@ -107,8 +133,6 @@
                         <label id="content">Message</label>
                         <input id="x" type="hidden" name="content">
                         <trix-editor input="x"></trix-editor>
-                        {{-- <textarea name="content" id="content" cols="30" rows="10"
-                        class="form-control @error('content') is-invalid @enderror"></textarea> --}}
                         @error('content')
                             <small class="invalid-feedback" role="alert">{{ $message }}</small>
                         @enderror

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
@@ -14,6 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('isAdmin'), 404);
         $categories = Category::latest()->get();
         return view('category.index', compact('categories'));
     }
@@ -25,6 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('isAdmin'), 404);
         $category = new Category();
         return view('category.create', compact('category'));
     }
@@ -37,6 +40,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        abort_if(Gate::denies('isAdmin'), 404);
         $request->validate([
             'name' => 'required|unique:categories,name'
         ]);
@@ -52,6 +56,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        abort_if(Gate::denies('isAdmin'), 404);
         return view('category.edit', compact('category'));
     }
 
@@ -64,6 +69,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        abort_if(Gate::denies('isAdmin'), 404);
         $request->validate([
             'name' => 'required|unique:categories,name,' . $category->id,
         ]);
@@ -79,6 +85,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        abort_if(Gate::denies('isAdmin'), 404);
         $category->delete();
         return redirect()->route('category.index')->with('success', 'Category has been deleted!');
     }

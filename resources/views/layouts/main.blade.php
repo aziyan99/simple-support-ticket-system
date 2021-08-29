@@ -37,14 +37,28 @@
                     <h5>Menu</h5>
                     <hr>
                     <div class="list-group">
+                        @can('isAdmin')
                         <a href="{{ route('dashboard.index') }}"
                             class="list-group-item">Dashboard</a>
+                        @endcan
+
+                        @can('isAgent')
+                        <a href="{{ route('dashboard.index') }}"
+                            class="list-group-item">Dashboard</a>
+                        @endcan
+
+                        @can('isAdmin')
                         <a href="{{ route('category.index') }}"
                            class="list-group-item">Ticket Categories</a>
+                        @endcan
+
                         <a href="{{ route('ticket.index') }}"
                            class="list-group-item">Tickets</a>
+
+                        @can('isAdmin')
                         <a href="{{ route('user.index') }}"
                            class="list-group-item">Users</a>
+                        @endcan
                     </div>
 
                     <div class="list-group mt-4">
