@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## S2TS Simple Support Ticket Sistem
+## Simple Support Ticket System
 
 ![img-1](https://i.ibb.co/BfVGzgX/screencapture-support-ticket-test-dashboard-2021-08-29-21-58-53.png)
 
